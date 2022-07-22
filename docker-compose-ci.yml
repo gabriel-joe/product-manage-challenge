@@ -8,10 +8,18 @@ services:
       - '9000:9000'
     command:
        - -Dsonar.ce.javaOpts=-Xmx2048m -Dsonar.web.javaOpts=-Xmx2048m
+  nexus-v3:
+    build:
+      context: ./nexus/
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8081'
   jenkins:
     build:
       context: ./jenkins/
       dockerfile: Dockerfile
+    environment:
+      - SONAR_TOKEN=1d9c085bcbae588bbb8cf89ee9d96e9ed9d4e443
     image: product-review
     container_name: jenkins-ci
     command: sh -c "(/var/tmp/start-configure-jenkins.sh&) && /usr/local/bin/jenkins.sh"
