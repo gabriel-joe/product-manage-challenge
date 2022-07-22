@@ -3,8 +3,6 @@ pipeline {
 	environment {
 	  NEXUS_HOST = 'nexus:8081'
 	  SONAR_HOST = 'http://sonarqube:9000'
-	  NEXUS_USER = 'admin'
-	  NEXUS_PASSWORD = 'admin123'
 	  APP_VERSION = sh(returnStdout: true, script: """ echo \$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' product_service/pom.xml) """)
 	}
     stages {
@@ -29,9 +27,9 @@ pipeline {
         }
         stage('Publish') {
             steps {
-				sh 'docker build . -t $NEXUS_HOST/product-service:$DOCKER_VERSION'
+				sh 'docker build . -t $NEXUS_HOST/product-service:$APP_VERSION'
                 sh 'echo $NEXUS_PASSWORD | docker login -u $NEXUS_USER $NEXUS_HOST --password-stdin'
-                sh 'docker push $NEXUS_HOST/product-service:$DOCKER_VERSION'
+                sh 'docker push $NEXUS_HOST/product-service:$APP_VERSION'
             }
         }
     }    
