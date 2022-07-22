@@ -21,7 +21,7 @@ services:
       context: ./jenkins/
       dockerfile: Dockerfile
     environment:
-      - SONAR_TOKEN=4fc7ae2343f2786a895d33ad04b20fe24b450363
+      - SONAR_TOKEN=<replace_your_token>
       - NEXUS_USER=admin
       - NEXUS_PASSWORD=admin123
     container_name: jenkins-ci
