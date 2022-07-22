@@ -13,6 +13,7 @@ pipeline {
                 echo 'Clean/Build'
 				sh 'echo $APP_VERSION'
                 sh 'mvnw clean install'
+                echo 'Run sonar validation'
                 sh 'mvnw sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
             }
         }
