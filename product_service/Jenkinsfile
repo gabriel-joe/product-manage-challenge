@@ -13,9 +13,9 @@ pipeline {
                 dir('product_service'){
                     echo 'Clean/Build'
                     sh 'echo $APP_VERSION'
-                    sh './mvnw clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+                    sh 'mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
                     echo 'Run sonar validation'
-                    sh './mvnw sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
+                    sh 'mvn sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir('product_service'){
                     echo 'Testing'
-                    sh './mvnw test'
+                    sh 'mvn test'
                 }
             }
         }
@@ -41,9 +41,11 @@ pipeline {
         }
         success {
             echo 'JENKINS PIPELINE SUCCESSFUL'
+            deleteDir()
         }
         failure {
             echo 'JENKINS PIPELINE FAILED'
+            deleteDir()
         }
         unstable {
             echo 'JENKINS PIPELINE WAS MARKED AS UNSTABLE'
