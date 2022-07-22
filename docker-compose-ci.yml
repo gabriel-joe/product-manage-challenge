@@ -9,19 +9,19 @@ services:
       - '9000:9000'
     command:
        - -Dsonar.ce.javaOpts=-Xmx2048m -Dsonar.web.javaOpts=-Xmx2048m
-  nexus:
-    build:
-      context: ./nexus/
-      dockerfile: Dockerfile
-    container_name: nexus
-    ports:
-      - '8081:8081'
+  #nexus:
+  #  build:
+  #    context: ./nexus/
+  #    dockerfile: Dockerfile
+  #  container_name: nexus
+  #  ports:
+  #    - '8081:8081'
   jenkins:
     build:
       context: ./jenkins/
       dockerfile: Dockerfile
     environment:
-      - SONAR_TOKEN=809bf6c54393e1be953d599fabc99fc651bf7543
+      - SONAR_TOKEN=4fc7ae2343f2786a895d33ad04b20fe24b450363
       - NEXUS_USER=admin
       - NEXUS_PASSWORD=admin123
     container_name: jenkins-ci

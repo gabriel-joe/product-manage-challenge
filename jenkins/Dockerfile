@@ -3,7 +3,8 @@ FROM jenkinsci/blueocean
 USER root 
 RUN addgroup -S jenkins docker && apk add sudo
 COPY ./start-configure-jenkins.sh /var/tmp/
-RUN chmod +x /var/tmp/start-configure-jenkins.sh 
+RUN chmod +x /var/tmp/start-configure-jenkins.sh
+RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # install jenkins plugins
 RUN /usr/local/bin/install-plugins.sh configuration-as-code git mstest matrix-auth workflow-aggregator docker-workflow blueocean credentials-binding ldap maven-plugin
 USER root
