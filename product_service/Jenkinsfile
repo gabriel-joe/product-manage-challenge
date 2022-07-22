@@ -5,22 +5,26 @@ pipeline {
 	  SONAR_HOST = 'http://sonarqube:9000'
 	  NEXUS_USER = 'admin'
 	  NEXUS_PASSWOD = 'gabriel12'
-	  APP_VERSION = sh(returnStdout: true, script: """ echo \$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml) """)
+	  APP_VERSION = sh(returnStdout: true, script: """ echo \$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' product_service/pom.xml) """)
 	}
     stages {
         stage('Build') {
             steps {
-                echo 'Clean/Build'
-				sh 'echo $APP_VERSION'
-                sh 'mvnw clean install'
-                echo 'Run sonar validation'
-                sh 'mvnw sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
+                dir('product_service'){
+                    echo 'Clean/Build'
+                    sh 'echo $APP_VERSION'
+                    sh './mvnw clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+                    echo 'Run sonar validation'
+                    sh './mvnw sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing'
-                sh 'mvnw test'
+                dir('product_service'){
+                    echo 'Testing'
+                    sh './mvnw test'
+                }
             }
         }
         stage('Publish') {
