@@ -1,5 +1,13 @@
 version: '3'
 services:
+  sonarqube:
+    build:
+      context: ./sonarqube/
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    command:
+       - -Dsonar.ce.javaOpts=-Xmx2048m -Dsonar.web.javaOpts=-Xmx2048m
   jenkins:
     build:
       context: ./jenkins/
