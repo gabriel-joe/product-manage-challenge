@@ -29,8 +29,8 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                sh 'echo $NEXUS_PASSWORD | docker login -u $NEXUS_USER $NEXUS_HOST --password-stdin'
 				sh 'docker build . -t $NEXUS_HOST/product-service:$DOCKER_VERSION'
+                sh 'echo $NEXUS_PASSWORD | docker login -u $NEXUS_USER $NEXUS_HOST --password-stdin'
                 sh 'docker push $NEXUS_HOST/product-service:$DOCKER_VERSION'
             }
         }
