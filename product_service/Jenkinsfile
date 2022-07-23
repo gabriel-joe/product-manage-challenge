@@ -34,22 +34,18 @@ pipeline {
         }
     }    
     post {
-        always {
-            echo 'JENKINS PIPELINE'
-        }
         success {
-            echo 'JENKINS PIPELINE SUCCESSFUL'
-            deleteDir()
+            echo 'Product service build finished'
         }
         failure {
-            echo 'JENKINS PIPELINE FAILED'
-            deleteDir()
+            echo 'Product service pipeline failed'
+            
         }
         unstable {
-            echo 'JENKINS PIPELINE WAS MARKED AS UNSTABLE'
+            echo 'Product service PIPELINE WAS MARKED AS UNSTABLE'
         }
         changed {
-            echo 'JENKINS PIPELINE STATUS HAS CHANGED SINCE LAST EXECUTION'
+            echo 'Product service PIPELINE STATUS HAS CHANGED SINCE LAST EXECUTION'
         }
     }
 }
