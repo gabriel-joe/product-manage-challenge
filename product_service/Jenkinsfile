@@ -11,9 +11,9 @@ pipeline {
                 dir('product_service'){
                     echo 'Clean/Build'
                     sh 'echo $APP_VERSION'
-                    sh 'mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+                    sh 'sudo mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
                     echo 'Run sonar validation'
-                    sh 'mvn sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
+                    sh 'sudo mvn sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=$SONAR_HOST'
                 }
             }
         }
@@ -28,7 +28,7 @@ pipeline {
         stage('Publish') {
             steps {
                 dir('product_service'){
-                    sh 'mvn clean deploy -Ddocker.url=http://$NEXUS_HOST -Ddocker.user=$NEXUS_USER -Ddocker.password=$NEXUS_PASSWORD'
+                    sh 'sudo mvn clean publish -Ddocker.url=http://$NEXUS_HOST -Ddocker.user=$NEXUS_USER -Ddocker.password=$NEXUS_PASSWORD'
                 }
             }
         }
