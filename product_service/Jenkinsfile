@@ -39,14 +39,14 @@ pipeline {
             dir('product_service'){
                sh 'sudo mvn clean'
             }
-            deleteDir()
+            //deleteDir()
         }
         failure {
             echo 'Product service pipeline failed'
             dir('product_service'){
                sh 'sudo mvn clean'
             }
-            deleteDir()
+            //deleteDir()
         }
         unstable {
             echo 'Product service PIPELINE WAS MARKED AS UNSTABLE'
