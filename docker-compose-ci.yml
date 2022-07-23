@@ -9,13 +9,13 @@ services:
       - '9000:9000'
     command:
        - -Dsonar.ce.javaOpts=-Xmx2048m -Dsonar.web.javaOpts=-Xmx2048m
-  #nexus:
-  #  build:
-  #    context: ./nexus/
-  #    dockerfile: Dockerfile
-  #  container_name: nexus
-  #  ports:
-  #    - '8081:8081'
+  nexus:
+    build:
+      context: ./nexus/
+      dockerfile: Dockerfile
+    container_name: nexus
+    ports:
+      - '8081:8081'
   jenkins:
     build:
       context: ./jenkins/

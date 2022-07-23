@@ -45,7 +45,7 @@ pipeline {
         }
         failure {
             echo 'JENKINS PIPELINE FAILED'
-            deleteDir()
+            //deleteDir()
         }
         unstable {
             echo 'JENKINS PIPELINE WAS MARKED AS UNSTABLE'
