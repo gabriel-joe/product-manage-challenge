@@ -28,9 +28,7 @@ pipeline {
         stage('Publish') {
             steps {
                 dir('product_service'){
-                    sh 'docker build . -t $NEXUS_HOST/product-service:$APP_VERSION'
-                    //sh 'echo $NEXUS_PASSWORD | docker login -u $NEXUS_USER $NEXUS_HOST --password-stdin'
-                    //sh 'docker push $NEXUS_HOST/product-service:$APP_VERSION'
+                    sh 'mvn clean deploy -Ddocker.url=http://$NEXUS_HOST -Ddocker.user=$NEXUS_USER -Ddocker.password=$NEXUS_PASSWORD'
                 }
             }
         }
