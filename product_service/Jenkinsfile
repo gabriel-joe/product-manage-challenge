@@ -21,7 +21,7 @@ pipeline {
             steps {
                 dir('product_service'){
                     echo 'Testing'
-                    sh 'mvn test'
+                    sh 'sudo mvn test'
                 }
             }
         }
