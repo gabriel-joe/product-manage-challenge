@@ -112,7 +112,7 @@
 						<!-- Login and Push the image to a docker repo. -->
 					<execution>
 					<id>docker-login</id>
-					<phase>publish</phase>
+					<phase>deploy</phase>
 					<goals>
 						<goal>exec</goal>
 					</goals>
@@ -131,7 +131,7 @@
 					</execution>
 					<execution>
 					<id>docker-push</id>
-					<phase>publish</phase>
+					<phase>deploy</phase>
 					<goals>
 						<goal>exec</goal>
 					</goals>
